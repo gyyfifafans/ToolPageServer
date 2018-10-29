@@ -1,5 +1,5 @@
 #-*-coding:utf-8 -*-
-
+#for python 3.6.5
 import os.path
 from flask import Flask,make_response,request,render_template,send_file,send_from_directory,redirect,url_for
 import logging
@@ -39,6 +39,19 @@ user_ = 'stock_staging'
 password_ = 'v8c8gQ_nFK4iN_q2'
 db_stock_staging = 'stock_staging'
 
+
+class MyEncoder(json.JSONEncoder):
+ 
+    def default(self, obj):
+        """
+        只要检查到了是bytes类型的数据就把它转为str类型
+        :param obj:
+        :return:
+        """
+        if isinstance(obj, bytes):
+            return str(obj, encoding='utf-8')
+        return json.JSONEncoder.default(self, obj)
+
 @app.route("/getAuthCode",methods=["GET"])
 def getAuthCode():
     jsonObject = {}
@@ -51,7 +64,7 @@ def getAuthCode():
         except Exception as e:
             print ("error message==>",e)
 
-    return json.dumps(jsonObject)
+    return json.dumps(jsonObject,cls=MyEncoder)
 
 
 @app.route("/getHkLv2",methods=["GET"])
@@ -110,7 +123,7 @@ def resetTradeCode():
         result=r.get(k)
     except Exception as e:
         print ("error message==>",e)
-    return json.dumps({"获取重置交易密码验证码":result})
+    return json.dumps({"获取重置交易密码验证码":result},cls=MyEncoder)
 
 #auth code finish
 
