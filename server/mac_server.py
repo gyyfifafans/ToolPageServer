@@ -24,7 +24,8 @@ keys = {'fast_login':'brokers:user:{phone}:{process}:code',
         'email_verify':'user:{phone}:{process}:code',
         'account_verify':'user:{phone}:{process}:code',
         'login_password_verify':'user:{phone}:{process}:code',
-        'withdraw_verify':'user:{phone}:{process}:code'}
+        'withdraw_verify':'user:{phone}:{process}:code',
+        'email_portal':'brokers:user:{phone}:{process}:code'}
 
 content = {'fast_login':u'获取APP快速登录验证码',
            'signup':u'获取APP注册的验证码',
@@ -32,7 +33,8 @@ content = {'fast_login':u'获取APP快速登录验证码',
            'email_verify':u'获取修改邮箱的验证码 ',
            'account_verify':u'获取官网的注册验证码',
            'login_password_verify':u'获取重置登录密码验证码',
-           'withdraw_verify':u'获取bos出金的验证码'}
+           'withdraw_verify':u'获取bos出金的验证码',
+           'email_portal':u'邮箱注册验证手机号短信'}
 
 host_ = '172.30.73.10'
 user_ = 'stock_staging'
