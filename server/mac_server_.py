@@ -84,7 +84,7 @@ def getAuthCodeGlobal():
     except Exception as e:
         print ("error message==>",e)
 
-    return json.dumps(jsonObject) 
+    return json.dumps(jsonObject,cls=MyEncoder) 
 
 @app.route("/getAuthCode",methods=["GET"])
 def getAuthCode():
