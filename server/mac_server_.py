@@ -36,6 +36,12 @@ content = {'fast_login':u'获取APP快速登录验证码',
            'withdraw_verify':u'获取bos出金的验证码',
            'email_portal':u'邮箱注册验证手机号短信'}
 
+keys_global = {'signup':'verify:{process}:{unique_id}:code',
+               'fast_login':'verify:{process}:{unique_id}:code'}
+
+content_global = {'signup':u'获取国际版APP注册的验证码',
+                  'fast_login':u'获取国际版APP快速登录验证码'}
+
 host_ = '172.30.73.10'
 user_ = 'stock_staging'
 password_ = 'v8c8gQ_nFK4iN_q2'
@@ -53,6 +59,32 @@ class MyEncoder(json.JSONEncoder):
         if isinstance(obj, bytes):
             return str(obj, encoding='utf-8')
         return json.JSONEncoder.default(self, obj)
+
+@app.route("/getAuthCodeGlobal",methods=["GET"])
+def getAuthCodeGlobal():
+    jsonObject = {}
+    r=redis.Redis(host='172.30.73.10',port=6379,db=2,password='IeydzcujuhnI25yEdGUz5n14')
+    r_ = requests.get("https://test-cms.tigerfintech.com/api/v1/cms/device/info?phone="+request.args.get('phone'))
+    result_ = json.loads(r_.text)
+    try:
+        if result_['data']==[]:
+            print ("未注册用户")
+            for key,value in keys_global.items():
+                k=value.format(unique_id=request.args.get('phone'),process=key)
+                result=r.get(k)
+                jsonObject[content_global[key]] = result
+        else:
+            print ("已注册用户")
+            l = len(result_['data'])
+            user_id_ = result_['data'][l-1]['user_id']
+            for key,value in keys_global.items():        
+                k=value.format(unique_id=user_id_,process=key)
+                result=r.get(k)
+                jsonObject[content_global[key]] = result
+    except Exception,e:
+        print "error message==>",e
+
+    return json.dumps(jsonObject) 
 
 @app.route("/getAuthCode",methods=["GET"])
 def getAuthCode():
