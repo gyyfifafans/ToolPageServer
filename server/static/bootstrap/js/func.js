@@ -24,6 +24,32 @@ function get_auth_code(){
 
 }
 
+function get_auth_code_global(){
+    var phone = $("#auth-code-global").val();
+    $.ajaxSettings.async = false;
+    if(phone){
+        $.get("/getAuthCodeGlobal?phone="+phone,function(data){
+            results = JSON.parse(data);
+            var trHtml = "";
+            $(".code_global").empty();
+            for(var key in results){
+                if(results[key]==null){
+                    trHtml+='<li>'+key+' :  '+'------</li><br/>'
+                }
+                else{
+                    trHtml+='<li>'+key+' :  '+results[key]+'</li><br/>'
+                }
+                            
+            }
+            $(".code_global").append(trHtml);
+        });
+    }
+    else{
+        alert("请输入手机号 ！！");
+        }
+
+}
+
 function get_reset_code(){
     var id_no = $("#id_no").val();
     $.ajaxSettings.async = false;
