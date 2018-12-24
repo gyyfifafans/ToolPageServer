@@ -5,7 +5,7 @@ from flask import Flask,make_response,request,render_template,send_file,send_fro
 import logging
 logger = logging.getLogger(__name__)
 import json
-import time_transfor
+#import time_transfor
 import shutil as su
 from datetime import timedelta
 import time
@@ -81,8 +81,8 @@ def getAuthCodeGlobal():
                 k=value.format(unique_id=user_id_,process=key)
                 result=r.get(k)
                 jsonObject[content_global[key]] = result
-    except Exception,e:
-        print "error message==>",e
+    except Exception as e:
+        print ("error message==>",e)
 
     return json.dumps(jsonObject) 
 
