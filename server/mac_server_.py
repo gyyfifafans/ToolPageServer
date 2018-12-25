@@ -67,7 +67,7 @@ def getAuthCodeGlobal():
     r_ = requests.get("https://test-cms.tigerfintech.com/api/v1/cms/device/info?phone="+request.args.get('phone'))
     result_ = json.loads(r_.text)
     try:
-        if result_['data']==[]:
+        if result_['data']==[] or (result_['data'][len(result_['data'])-1]).has_key('user_id')==False:
             print ("未注册用户")
             for key,value in keys_global.items():
                 k=value.format(unique_id=request.args.get('phone'),process=key)
