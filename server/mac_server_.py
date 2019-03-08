@@ -67,7 +67,7 @@ def getAuthCodeGlobal():
     r_ = requests.get("https://test-cms.tigerfintech.com/api/v1/cms/device/info?phone="+request.args.get('phone'))
     result_ = json.loads(r_.text)
     try:
-        if result_['data']==[] or (result_['data'][len(result_['data'])-1]).has_key('user_id')==False:
+        if result_['data']==[] or ('user_id' in (result_['data'][len(result_['data'])-1]).keys())==False:
             print ("未注册用户")
             for key,value in keys_global.items():
                 k=value.format(unique_id=request.args.get('phone'),process=key)
@@ -77,14 +77,14 @@ def getAuthCodeGlobal():
             print ("已注册用户")
             l = len(result_['data'])
             user_id_ = result_['data'][l-1]['user_id']
-            for key,value in keys_global.items():        
+            for key,value in keys_global.items():
                 k=value.format(unique_id=user_id_,process=key)
                 result=r.get(k)
                 jsonObject[content_global[key]] = result
     except Exception as e:
         print ("error message==>",e)
 
-    return json.dumps(jsonObject,cls=MyEncoder) 
+    return json.dumps(jsonObject,cls=MyEncoder)
 
 @app.route("/getAuthCode",methods=["GET"])
 def getAuthCode():
