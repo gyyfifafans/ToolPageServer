@@ -15,10 +15,23 @@
             <br />
             <br />
             <ul>
-                <span>国内版 :</span><br/><br/>
+                <span>app国内版 :</span><br/><br/>
                 <input id="auth_code" type="text" placeholder="请输入手机号" onkeydown="if(event.keyCode==13) {get_auth_code()}"/>
                     <!--a href="javascript:void(0)" class="get_auth_code" onclick="get_auth_code()">获取</a><br/><br/-->
                     <button type="button" class="btn btn-primary btn-xs" onclick="get_auth_code()">获取验证码</button><br/><br/>
+                <div class="code"></div>
+                
+            </ul>
+        </div>
+        
+        <div class="auth-code-web">
+            <br />
+            <br />
+            <ul>
+                <span>官网国内版 :</span><br/><br/>
+                <input id="auth_code_web" type="text" placeholder="请输入手机号" onkeydown="if(event.keyCode==13) {get_auth_code_web()}"/>
+                    <!--a href="javascript:void(0)" class="get_auth_code" onclick="get_auth_code()">获取</a><br/><br/-->
+                    <button type="button" class="btn btn-primary btn-xs" onclick="get_auth_code_web()">获取验证码</button><br/><br/>
                 <div class="code"></div>
                 
             </ul>
