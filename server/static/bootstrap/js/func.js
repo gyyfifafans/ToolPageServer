@@ -31,7 +31,7 @@ function get_auth_code_web(){
         $.get("/getAuthCodeWeb?phone="+phone,function(data){
             results = JSON.parse(data);
             var trHtml = "";
-            $(".code").empty();
+            $(".code_web").empty();
             for(var key in results){
                 if(results[key]==null){
                     trHtml+='<li>'+key+' :  '+'------</li><br/>'
@@ -41,7 +41,7 @@ function get_auth_code_web(){
                 }
                             
             }
-            $(".code").append(trHtml);
+            $(".code_web").append(trHtml);
         });
     }
     else{
