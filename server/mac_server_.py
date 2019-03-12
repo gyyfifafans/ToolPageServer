@@ -96,9 +96,13 @@ def getAuthCode():
             k=value.format(phone=request.args.get('phone'),process=key)
             if r.get(k):
                 result=r.get(k)
+                jsonObject[content[key]] = result
+                break
             elif r1.get(k):
                 result=r1.get(k)
-            jsonObject[content[key]] = result
+                jsonObject[content[key]] = result
+                break
+            
         except Exception as e:
             print ("error message==>",e)
 
