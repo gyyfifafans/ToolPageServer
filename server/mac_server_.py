@@ -90,10 +90,14 @@ def getAuthCodeGlobal():
 def getAuthCode():
     jsonObject = {}
     r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
+    r1=redis.Redis(host='172.30.73.10',port=6379,db=2,password='IeydzcujuhnI25yEdGUz5n14')
     for key,value in keys.items():
         try:
             k=value.format(phone=request.args.get('phone'),process=key)
-            result=r.get(k)
+            if r.get(k):
+                result=r.get(k)
+             elif r1.get(k):
+                result=r1.get(k)
             jsonObject[content[key]] = result
         except Exception as e:
             print ("error message==>",e)
