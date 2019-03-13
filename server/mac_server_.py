@@ -97,11 +97,13 @@ def getAuthCode():
             if r.get(k):
                 result=r.get(k)
                 jsonObject[content[key]] = result
-                break
+                continue
             elif r1.get(k):
                 result=r1.get(k)
                 jsonObject[content[key]] = result
-                break
+                continue
+            else:
+                jsonObject[content[key]] = None
             
         except Exception as e:
             print ("error message==>",e)
