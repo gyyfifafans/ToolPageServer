@@ -89,8 +89,8 @@ def getAuthCodeGlobal():
 @app.route("/getAuthCode",methods=["GET"])
 def getAuthCode():
     jsonObject = {}
-    r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
-    r1=redis.Redis(host='172.30.73.10',port=6379,db=2,password='IeydzcujuhnI25yEdGUz5n14')
+    #r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
+    r=redis.Redis(host='172.30.73.10',port=6379,db=2,password='IeydzcujuhnI25yEdGUz5n14')
     for key,value in keys.items():
         try:
             k=value.format(phone=request.args.get('phone'),process=key)
@@ -98,10 +98,10 @@ def getAuthCode():
                 result=r.get(k)
                 jsonObject[content[key]] = result
                 continue
-            elif r1.get(k):
-                result=r1.get(k)
-                jsonObject[content[key]] = result
-                continue
+            #elif r1.get(k):
+             #   result=r1.get(k)
+             #   jsonObject[content[key]] = result
+              #  continue
             else:
                 jsonObject[content[key]] = None
             
@@ -113,7 +113,7 @@ def getAuthCode():
 @app.route("/getAuthCodeWeb",methods=["GET"])
 def getAuthCodeWeb():
     jsonObject = {}
-    r=redis.Redis(host='172.30.73.10',port=6379,db=2,password='IeydzcujuhnI25yEdGUz5n14')
+    r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
     for key,value in keys.items():
         try:
             k=value.format(phone=request.args.get('phone'),process=key)
