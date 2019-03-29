@@ -18,7 +18,15 @@ app.root_path = os.path.dirname(os.path.abspath(__file__))
 #app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
 
 #auth code start
-keys = {'fast_login':'brokers:user:{phone}:{process}:code',
+keys_client = {'fast_login':'brokers:user:{phone}:{process}:code',
+        'signup':'brokers:user:{phone}:{process}:code',
+        'phone_verify':'user:{phone}:{process}:code',
+        'email_verify':'user:{phone}:{process}:code',
+        'account_verify':'user:{phone}:{process}:code',
+        'login_password_verify':'user:{phone}:{process}:code',
+        'withdraw_verify':'user:{phone}:{process}:code',
+        'email_portal':'brokers:user:{phone}:{process}:code'}
+keys_web = {'fast_login':'brokers:user:{phone}:{process}:code',
         'signup':'brokers:user:{phone}:{process}:code',
         'phone_verify':'user:{phone}:{process}:code',
         'email_verify':'user:{phone}:{process}:code',
@@ -85,13 +93,13 @@ def getAuthCodeGlobal():
         print ("error message==>",e)
 
     return json.dumps(jsonObject,cls=MyEncoder)
-
+#client
 @app.route("/getAuthCode",methods=["GET"])
 def getAuthCode():
     jsonObject = {}
     #r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
     r=redis.Redis(host='172.30.73.10',port=6379,db=2,password='IeydzcujuhnI25yEdGUz5n14')
-    for key,value in keys.items():
+    for key,value in keys_client.items():
         try:
             k=value.format(phone=request.args.get('phone'),process=key)
             if r.get(k):
@@ -109,12 +117,12 @@ def getAuthCode():
             print ("error message==>",e)
 
     return json.dumps(jsonObject,cls=MyEncoder)
-
+#web
 @app.route("/getAuthCodeWeb",methods=["GET"])
 def getAuthCodeWeb():
     jsonObject = {}
     r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
-    for key,value in keys.items():
+    for key,value in keys_web.items():
         try:
             k=value.format(phone=request.args.get('phone'),process=key)
             result=r.get(k)
