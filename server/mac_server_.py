@@ -45,10 +45,10 @@ content = {'fast_login':u'获取APP快速登录验证码',
            'email_portal':u'邮箱注册验证手机号短信'}
 
 keys_global = {'signup':'verify:{process}:{unique_id}:code',
-               'fast_login':'verify:{process}:{unique_id}:code'}
+               'fast_signin':'verify:{process}:{unique_id}:code'}
 
 content_global = {'signup':u'获取国际版APP注册的验证码',
-                  'fast_login':u'获取国际版APP快速登录验证码'}
+                  'fast_signin':u'获取国际版APP快速登录验证码'}
 
 host_ = '172.30.73.10'
 user_ = 'stock_staging'
