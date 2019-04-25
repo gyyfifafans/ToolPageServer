@@ -143,7 +143,7 @@ def var():
         try:
             k=value.format(phone=request.args.get('phone'),process=key)
             result=r.get(k)
-            jsonObject[content[key]] = result
+            jsonObject[key] = result
         except Exception as e:
             print ("error message==>",e)
 
