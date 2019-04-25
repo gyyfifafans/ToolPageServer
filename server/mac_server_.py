@@ -134,7 +134,7 @@ def getAuthCodeWeb():
 
 
 #for signup
-@app.route("/getSigeUpCode",methods=["GET"])
+@app.route("/getSignUpCode",methods=["GET"])
 def var():
     keys = {'signup':'brokers:user:{phone}:{process}:code'}
     jsonObject = {}
