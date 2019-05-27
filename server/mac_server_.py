@@ -132,23 +132,6 @@ def getAuthCodeWeb():
 
     return json.dumps(jsonObject,cls=MyEncoder)
 
-
-#for signup
-@app.route("/getSignUpCode",methods=["GET"])
-def var():
-    keys = {'signup':'brokers:user:{phone}:{process}:code'}
-    jsonObject = {}
-    r=redis.Redis(host='172.30.73.10',port=6379,db=1,password='IeydzcujuhnI25yEdGUz5n14')
-    for key,value in keys.items():
-        try:
-            k=value.format(phone=request.args.get('phone'),process=key)
-            result=r.get(k)
-            jsonObject[key] = result
-        except Exception as e:
-            print ("error message==>",e)
-
-    return json.dumps(jsonObject,cls=MyEncoder)
-
 @app.route("/getHkLv2",methods=["GET"])
 def getHKLv2():
     try:
@@ -208,65 +191,6 @@ def resetTradeCode():
     return json.dumps({"获取重置交易密码验证码":result},cls=MyEncoder)
 
 #auth code finish
-
-@app.route('/testReport',methods=['GET'])
-def report():
-    directory = '/Users/ios_package/.jenkins/jobs'
-    filelist = os.listdir(directory)
-    fileslist = []
-    dirslist = []
-    url = {}
-    for files in filelist:
-        filepath = os.path.join(directory,files)
-        if os.path.isdir(filepath):
-            if files.startswith("Android") or files.startswith("IOS"):
-                dirslist.append(files)
-                url[files] = '/detail/'+files
-    return render_template("testReport.html",dirsresult = dirslist,urllist = url)
-
-
-#index.html put in templates dir 
-@app.route('/detail/<job_name>',methods=['GET'])
-def getDetail(job_name):
-    jobDir = '/Users/ios_package/.jenkins/jobs/'
-    htmlFileDirectory = jobDir+job_name+'/workspace/reports/html'
-    imageFileDirectory = jobDir+job_name+'/workspace/failedcases'
-    directory = os.path.split(os.path.realpath(__file__))[0]
-
-    if not os.path.exists(htmlFileDirectory):
-        return redirect(url_for("report"))
-    
-    del_htmlDir(directory)        
-    
-    #deal with the cache problem
-    mytime = str(time.time())
-    su.copytree(htmlFileDirectory,directory+'/static/testReport/html'+mytime)
-    if os.path.exists(imageFileDirectory):
-        su.copytree(imageFileDirectory,directory+'/static/failedcases')
-    suite = url_for("static",filename="testReport/html"+mytime+"/suites.html")
-    overview = url_for("static",filename="testReport/html"+mytime+"/overview.html")
-    return render_template("index.html",s = suite,o = overview)
-
-
-def del_htmlDir(file_dir):
-    #print file_dir
-    failcasedirectory = file_dir+'/static'
-    htmldirectory = file_dir+'/static/testReport'
-    failcaselist = os.listdir(failcasedirectory)
-    htmllist = os.listdir(htmldirectory)
-    for files in failcaselist:
-        filepath = os.path.join(failcasedirectory,files)
-        if os.path.isdir(filepath):
-            if files.startswith("failedcases"):
-                #print 2
-                #print files
-                su.rmtree(filepath)
-    for files in htmllist:
-        filepath = os.path.join(htmldirectory,files)
-        if os.path.isdir(filepath):
-            if files.startswith("html"):
-                #print 1
-                su.rmtree(filepath)
 
 if __name__ == "__main__":
     #app.run(host='0.0.0.0',port=5000,debug=True)
