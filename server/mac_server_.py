@@ -19,13 +19,7 @@ app.root_path = os.path.dirname(os.path.abspath(__file__))
 
 #auth code start
 keys_client = {'fast_login':'brokers:user:{phone}:{process}:code',
-        'signup':'brokers:user:{phone}:{process}:code',
-        'phone_verify':'user:{phone}:{process}:code',
-        'email_verify':'user:{phone}:{process}:code',
-        'account_verify':'user:{phone}:{process}:code',
-        'login_password_verify':'user:{phone}:{process}:code',
-        'withdraw_verify':'user:{phone}:{process}:code',
-        'email_portal':'brokers:user:{phone}:{process}:code'}
+        'signup':'brokers:user:{phone}:{process}:code'}
 keys_web = {'fast_login':'brokers:user:{phone}:{process}:code',
         'signup':'brokers:user:{phone}:{process}:code',
         'phone_verify':'user:{phone}:{process}:code',
@@ -35,8 +29,8 @@ keys_web = {'fast_login':'brokers:user:{phone}:{process}:code',
         'withdraw_verify':'user:{phone}:{process}:code',
         'email_portal':'brokers:user:{phone}:{process}:code'}
 
-content = {'fast_login':u'获取APP快速登录验证码',
-           'signup':u'获取APP注册的验证码',
+content = {'fast_login':u'获取快速登录验证码',
+           'signup':u'获取注册的验证码',
            'phone_verify':u'获取修改手机号验证码',
            'email_verify':u'获取修改邮箱的验证码 ',
            'account_verify':u'获取官网的注册验证码',
@@ -177,6 +171,13 @@ def getHKLv2():
 def tools():
     return render_template("Tools.html")
 
+@app.route("/tools/client/more",methods=['GET'])
+def client():
+    return render_template('client_more.html')
+
+@app.route("/tools/client_global/more",methods=['GET'])
+def client_global():
+    return render_template('client_global_more.html')
 
 @app.route("/getResetTradeCode",methods=['GET'])
 def resetTradeCode():
