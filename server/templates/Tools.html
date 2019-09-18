@@ -7,7 +7,7 @@
                 <script type="text/javascript" src="/static/bootstrap/js/jquery-3.3.1.min.js"></script>
                 <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
                 <script type="text/javascript" src="static/bootstrap/js/func.js"></script>
-                
+
                 <title>工具页面</title>
         </head>
     <body>
@@ -15,15 +15,16 @@
             <br />
             <br />
             <ul>
-                <span>国内版 :</span><br/><br/>
+                <span>客户端国内版 :</span><br/><br/>
                 <input id="auth_code" type="text" placeholder="请输入手机号" onkeydown="if(event.keyCode==13) {get_auth_code()}"/>
                     <!--a href="javascript:void(0)" class="get_auth_code" onclick="get_auth_code()">获取</a><br/><br/-->
                     <button type="button" class="btn btn-primary btn-xs" onclick="get_auth_code()">获取验证码</button><br/><br/>
+                    <a href="{{ url_for('client') }}"><p>更多功能</p></a><br/><br/>
                 <div class="code"></div>
-                
+
             </ul>
         </div>
-        
+
         <div class="auth-code-web">
             <br />
             <br />
@@ -32,36 +33,37 @@
                 <input id="auth_code_web" type="text" placeholder="请输入手机号" onkeydown="if(event.keyCode==13) {get_auth_code_web()}"/>
                     <button type="button" class="btn btn-primary btn-xs" onclick="get_auth_code_web()">获取验证码</button><br/><br/>
                 <div class="code_web"></div>
-                
+
             </ul>
         </div>
-        
-        
+
+
         <div class="auth-code-global">
             <br />
             <br />
             <ul>
                 <span>国际版 :</span><br/><br/>
-                <input id="auth-code-global" type="text" placeholder="请输入手机号" onkeydown="if(event.keyCode==13) {get_auth_code_global()}"/>
+                <!--input id="auth-code-global" type="text" placeholder="请输入手机号" onkeydown="if(event.keyCode==13) {get_auth_code_global()}"/-->
                     <!--a href="javascript:void(0)" class="get_auth_code" onclick="get_auth_code()">获取</a><br/><br/-->
-                    <button type="button" class="btn btn-primary btn-xs" onclick="get_auth_code_global()">获取验证码</button><br/><br/>
+                    <!--button type="button" class="btn btn-primary btn-xs" onclick="get_auth_code_global()">获取验证码</button-->
+                    <a href="{{ url_for('client_global') }}"><p>更多功能</p></a><br/><br/>
                 <div class="code_global"></div>
-                
+
             </ul>
         </div>
-        
-        
+
+
         <!--div class="hk-quote">
             <ul>
                 <span class="label label-info">更改港股行情权限</span><br/><br/>
                 <input id="hk_quote" type="text" placeholder="请输入手机号" />
                     <a href="javascript:void(0)" class="get_hk_quote">更改</a><br/><br/>
                 <span class="message"></span>
-            
+
             </ul>
         </div-->
-        
-        
+
+
         <div class="reset-trade-password-code">
             <br />
             <br />
@@ -71,10 +73,10 @@
                     <!--a href="javascript:void(0)" class="get_reset_code" onclick="get_reset_code()">获取</a><br/><br/-->
                     <button type="button" class="btn btn-primary btn-xs" onclick="get_reset_code()">获取重置交易密码短信验证码</button><br/><br/>
                 <div class="reset_code"></div>
-            
+
             </ul>
         </div>
-        
+
     </body>
 
 </html>
