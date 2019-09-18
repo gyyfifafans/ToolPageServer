@@ -13,7 +13,7 @@ function get_auth_code(){
                 else{
                     trHtml+='<li>'+key+' :  '+results[key]+'</li><br/>'
                 }
-                            
+
             }
             $(".code").append(trHtml);
         });
@@ -39,7 +39,7 @@ function get_auth_code_web(){
                 else{
                     trHtml+='<li>'+key+' :  '+results[key]+'</li><br/>'
                 }
-                            
+
             }
             $(".code_web").append(trHtml);
         });
@@ -65,7 +65,7 @@ function get_auth_code_global(){
                 else{
                     trHtml+='<li>'+key+' :  '+results[key]+'</li><br/>'
                 }
-                            
+
             }
             $(".code_global").append(trHtml);
         });
@@ -91,7 +91,7 @@ function get_reset_code(){
                 else{
                     trHtml+='<li>'+key+' :  '+results[key]+'</li><br/>'
                 }
-                            
+
             }
             $(".reset_code").append(trHtml);
         });
