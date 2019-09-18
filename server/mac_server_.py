@@ -19,13 +19,7 @@ app.root_path = os.path.dirname(os.path.abspath(__file__))
 
 #auth code start
 keys_client = {'fast_login':'brokers:user:{phone}:{process}:code',
-        'signup':'brokers:user:{phone}:{process}:code',
-        'phone_verify':'user:{phone}:{process}:code',
-        'email_verify':'user:{phone}:{process}:code',
-        'account_verify':'user:{phone}:{process}:code',
-        'login_password_verify':'user:{phone}:{process}:code',
-        'withdraw_verify':'user:{phone}:{process}:code',
-        'email_portal':'brokers:user:{phone}:{process}:code'}
+        'signup':'brokers:user:{phone}:{process}:code'}
 keys_web = {'fast_login':'brokers:user:{phone}:{process}:code',
         'signup':'brokers:user:{phone}:{process}:code',
         'phone_verify':'user:{phone}:{process}:code',
@@ -35,8 +29,8 @@ keys_web = {'fast_login':'brokers:user:{phone}:{process}:code',
         'withdraw_verify':'user:{phone}:{process}:code',
         'email_portal':'brokers:user:{phone}:{process}:code'}
 
-content = {'fast_login':u'获取APP快速登录验证码',
-           'signup':u'获取APP注册的验证码',
+content = {'fast_login':u'获取快速登录验证码',
+           'signup':u'获取注册的验证码',
            'phone_verify':u'获取修改手机号验证码',
            'email_verify':u'获取修改邮箱的验证码 ',
            'account_verify':u'获取官网的注册验证码',
@@ -57,7 +51,7 @@ db_stock_staging = 'stock_staging'
 
 
 class MyEncoder(json.JSONEncoder):
- 
+
     def default(self, obj):
         """
         只要检查到了是bytes类型的数据就把它转为str类型
@@ -112,7 +106,7 @@ def getAuthCode():
               #  continue
             else:
                 jsonObject[content[key]] = None
-            
+
         except Exception as e:
             print ("error message==>",e)
 
@@ -140,11 +134,11 @@ def getHKLv2():
         user_id_ = result['data'][1]['user_id']
     except Exception as e:
         return render_template("test.html",error_message = e)
-    
+
     #当前日期之后30天
     start_time = '2018-10-16 15:08:33'
     end_time = '2018-10-17 15:08:33'
-    
+
     connection = pymysql.connect(host=host_,
                                  user=user_,
                                  password=password_,
@@ -154,7 +148,7 @@ def getHKLv2():
 
     try:
         with connection.cursor() as cursor:
-            sql = """INSERT INTO coupons (user_id, 
+            sql = """INSERT INTO coupons (user_id,
                                          coupon_start_time,
                                          coupon_end_time,
                                          dates,
@@ -163,8 +157,8 @@ def getHKLv2():
                                          type,
                                          tab,
                                          status) VALUES ("""+str(user_id_)+",'"+start_time+"','"+end_time+"""',1,'test','mobile','hk_quote','quote',1)"""
-            cursor.execute(sql)      
-        connection.commit()  
+            cursor.execute(sql)
+        connection.commit()
     except Exception as e:
         return render_template("test.html",error_message = e)
     finally:
@@ -177,6 +171,13 @@ def getHKLv2():
 def tools():
     return render_template("Tools.html")
 
+@app.route("/tools/client/more",methods=['GET'])
+def client():
+    return render_template('client_more.html')
+
+@app.route("/tools/client_global/more",methods=['GET'])
+def client_global():
+    return render_template('client_global_more.html')
 
 @app.route("/getResetTradeCode",methods=['GET'])
 def resetTradeCode():
